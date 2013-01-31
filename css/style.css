@@ -2,8 +2,8 @@
 body {
 	background:url(images/grunge1.png) center center repeat;
 	margin:0 auto
-	width: device-witdth;
-	height: device-height;
+	max-width: device-width;
+	max-heigth: device-heigth;
 	}
 .float-left {
 	float:left
@@ -44,6 +44,8 @@ h1 {
 	overflow:hidden;
 	border-radius:5px;
 	border:2px solid #ffffff
+	max-width: device-width;
+	max-heigth: device-heigth;
 	}
 #ball {
 	background:#d9ed7a;
@@ -82,6 +84,8 @@ h1 {
 	height:100px;
 	border-radius:5px;
 	border:1px solid #000000
+	max-width: device-width;
+	max-heigth: device-heigth;
 	}
 #gameover p, #pausegame p {
 	opacity:1
