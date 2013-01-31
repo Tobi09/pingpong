@@ -1,15 +1,3 @@
-/*********
-	"Ping Pong Battle" Game
-	version: 1.0stable
-	Author: Cristian Nistor
-	Libraries:  jQuery
-				jQuery Timers
-	License: GPL v3 (http://www.gnu.org/licenses/gpl-3.0.txt)
-	Release date: 18.Nov.2011
-	Demo: hhtp://www.lostresort.biz/pingpong/
-********/
-
-
 //tooltip function workaround for IE older browsers
 $(function() {
 	if ($.browser.msie && $.browser.version.substr(0,1)<7)
@@ -25,6 +13,7 @@ $(function() {
 if ($.browser.mozilla) {
 	$("#start").html("Start game")
 	}
+
 //initializing values for game engine
 var KEY = {UP:38, DOWN:40, W:87, S:83, Space:32};
 var pingpong = {scoreA:0, scoreB:0};
@@ -63,7 +52,10 @@ $('#save').click(function()
 	
 //initialize values for ball: speed, position and direction on X and Y axes
 pingpong.ball = {speed:6, x:290, y:140, directionX:1, directionY:1};
+var pause = false;
 $(function() {
+	$("#pause").attr("disabled", "disabled");
+	$("#pausebutton").hide("fast");
 	//mark down in array which key is pressed
 	$(document).keydown(function(e){
 		pingpong.pressedKeys[e.which] = true;
@@ -81,9 +73,12 @@ $(function() {
 		};
 		//set timer for game engine loop and hide button to prevent future clicks
 		$(this).everyTime(40, "start", gameLoop);
+		$("#pause").removeAttr("disabled");
 		$("#startbutton").hide("slow");
+		$("#pausebutton").show("slow");
 		//Fix for IE button active state (propagate generally)
 		$("#start").attr("disabled", "disabled");
+		pause = false;
 	});
 });
 
@@ -112,17 +107,27 @@ function gameLoop() {
 						maxScore = maxScore;
 					}
 			};
-	//Pause the game (clear timer) if Space bar is pressed and display message how to resume game and "Start/Resume game" button		
-	if (pingpong.pressedKeys[KEY.Space]) {
+	//Pause the game (clear timer) if Space bar is pressed and display message how to resume game and "Start/Resume game" button	
+	console.log("pause var= "+pause);
+	$("#pause").click(function() {
+		pause = true;
+		console.log("pause clicked= "+pause);
+		console.log
+	})
+	if (pause == true) {
 		if ($.browser.mozilla) {
 			alert("The game is paused. \n Click the OK to resume the game.");
 			} else {
+				console.log("pause in= "+pause);
+				$("#pause").attr("disabled", "disabled");
+				$("#pausebutton").hide("fast");
 				$("#pausegame").show("slow");
 				$("#start").removeAttr("disabled");
 				$("#startbutton").show("fast");
 				$(this).stopTime("start");
 			};
-	};
+	}
+	
 	//perform checks for "maxscore" value and perform actions based on returned boolean value for "Game over!" situation
 	if ((pingpong.scoreA == maxScore && pingpong.scoreA != 0) || (pingpong.scoreB == maxScore && pingpong.scoreB != 0)) {
 		//print message for game over, reset score and stop the game loop

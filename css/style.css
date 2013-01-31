@@ -1,6 +1,9 @@
+
 body {
 	background:url(images/grunge1.png) center center repeat;
 	margin:0 auto
+	width: device-witdth;
+	height: device-height;
 	}
 .float-left {
 	float:left
